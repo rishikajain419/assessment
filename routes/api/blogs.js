@@ -9,11 +9,14 @@ const blogService = require("../../services/blogService");
  * @swagger
  * /api/blogs:
  *    post:
+ *      tags:
+ *        - Posts
  *      description: Create a new blog
  *    responses:
  *      '201':
  *        description: Successfully created Blog
  */
+
 router.post("/", (req, res, next) => {
   // dealing with req body
   console.log(req.body);
@@ -39,14 +42,17 @@ router.post("/:id", (req, res, next) => {
 });
 
 /* GET blogs listing. */
-/**
+ /**
  * @swagger
  * /api/blogs:
  *  get:
+ *    tags:
+ *      - Posts
+ *    summary: Lists all the blogs
  *    description: Use to get all blogs
  *    responses:
  *      '200':
- *        description: A successful response!
+ *        description: A successful response
  */
 router.get("/", (req, res, next) => {
   blogService.getBlogs((err, data) => {
@@ -60,6 +66,29 @@ router.get("/", (req, res, next) => {
 });
 
 /* GET blogs/1 . */
+/**
+ * @swagger
+ /api/blogs/{id}:
+ *  get:
+ *   tags:
+ *    - Posts
+ *   summary: listing a single post
+ *   description: to display a blog with a particular id
+ *   produces:
+ *    - appication/json
+ *   parameters:
+ *    - in: path
+ *      name: id
+ *      required: true
+ *      description: id of the blog
+ *      schema:
+ *       $ref: '#/definitions/blogPost'
+ *   responses:
+ *    '200':
+ *     description: A successful response
+ *    '500':
+ *     description: Failed in getting a blog
+ */
 router.get("/:id", (req, res, next) => {
   // URL Param is: id
   let req_method = req.query._method;
@@ -72,22 +101,6 @@ router.get("/:id", (req, res, next) => {
     req.url = req.path;
     next();
   } else {
-    // blogService.getBlogById(req.params.id, (err, data) => {
-    //   if (!err) {
-    //     if(req_method === "EDIT")
-    //     {
-    //       res.render('update-blog',{detail: data});
-    //     }
-    //     else{
-    //       res.render("blog-detail.ejs", { detail: data });
-    //     }
-    //   }
-    //  // res.json(data);
-    //   else {
-    //     res.json(err);
-    //   }
-    // });
-
     blogService.getBlogById(req.params.id, (err, data) => {
       if (!err) {
         if (data && data.isDeleted === false) {
@@ -97,11 +110,13 @@ router.get("/:id", (req, res, next) => {
             res.render("blog-detail.ejs", { detail: data });
           }
         } else {
-          res.json({ Error: "Blog does not exist or the Blog has been deleted" });
+          res.json({
+            Error: "Blog does not exist or the Blog has been deleted",
+          });
         }
       } else {
         console.log(err);
-        res.json({ status: err});
+        res.json({ status: err });
       }
     });
   }

@@ -6,13 +6,11 @@ const logger = require('morgan');
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const cors = require("cors")
-
-
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const addBlogRouter = require('./routes/addBlog');
-const viewBlogsRouter = require('./routes/viewBlogs')
 const methodOverride  = require("method-override");
+
+// importing UI routes
+const indexRouter = require('./routes/index');
+const addBlogRouter = require('./routes/addBlog');
 
 // importing API Routes 
 const blogsRouter = require('./routes/api/blogs');
@@ -38,29 +36,27 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// enabling cors
 var corsOptions = {
   origin: 'http://localhost:8080',
   optionsSuccessStatus: 200, // For legacy browser support
   methods: "GET, PUT, POST, DELETE"
 }
-
 app.use(cors(corsOptions));
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/')));
 
+// ui and swagger end points
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/addBlog',addBlogRouter);
-app.use('/viewBlogs',viewBlogsRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
 
 // API Endpoints 
 app.use('/api/blogs', blogsRouter);
-
 
 // override with POST having ?_method=PUT
 app.use(methodOverride('_method'))
@@ -78,9 +74,10 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({error:err});
 });
 
+// enabling the port to be accessible at port:8080
 app.listen(8080, function () {
   console.log('CORS-enabled web server listening on port 8080')
 })

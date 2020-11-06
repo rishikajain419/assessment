@@ -1,3 +1,5 @@
+
+// setting up mongoDB connection
 const process = require("process");
 const mongoose = require("mongoose");
 const mongoConfig = require("../config/mongoConfig.json");
