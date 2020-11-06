@@ -7,6 +7,7 @@ var Blog = new mongoose.Schema({
   author: String,
   title: String,
   blogText: String,
+  blogImage: String,
   createdOn : {type: Date, default: Date.now},
   updatedBy : String,
   updatedOn : {type: Date, default: Date.now},

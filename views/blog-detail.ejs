@@ -10,12 +10,13 @@
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <!-- <script type="text/javascript" language="javascript">
-     function showBlogDetail()
-      {
-          window.location.href="http://localhost:3000/addBlog";
-      }
-    </script> -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"/>
+  
     <style>
       .fakeimg {
         height: 200px;
@@ -68,10 +69,10 @@
           </button>
           <a class="navbar-brand">Blogger</a>
         </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
+        <div class="collapse navbar-collapse" id="myNavbar" style="float: right;">
           <ul class="nav navbar-nav">
             <li><a href="http://localhost:3000/">Home</a></li>
-            <li><a href="http://localhost:3000/addBlog">Add Blog</a></li>
+            <li><a href="http://localhost:3000/addBlog">View Blogs</a></li>
             <li class="active">
               <a href="/api/blogs">All Posts</a>
             </li>
@@ -79,23 +80,38 @@
         </div>
       </div>
     </nav>
+
     <div class="container">
-      <div class="panel-group">
-        <div class="panel panel-default">
-          <div class="panel-heading"><%= detail.title %>
-          <div class="col-md-16" style="float: right;">
-                <a style="margin-top: -10px" href='/api/blogs' ><button class="btn btn-primary"> View Blogs </button></a>
-              </div>
-          </div>
-          <div class="panel-body">
-            <%= detail.blogText %>
-            <div style="margin-top:10px;"><span class="badge">Posted <%= detail.createdOn %></span></div>
-          </div>
+      <div class="well">
+          <div class="media">
+            <a class="pull-left" href="#">
+            <img class="media-object" src="<%= detail.blogImage %>" style="width: 165px; height: 145px;">
+          </a>
+          <div class="media-body">
+            <h4 class="media-heading"><strong><%= detail.title %></strong> - <i><%= detail.author %></i> </h4> 
+            <hr>
+              <p><%= detail.blogText %></p>
+              <ul class="list-inline list-unstyled">
+            <li><span><i class="glyphicon glyphicon-calendar"></i> <%= detail.createdOn %> </span></li>
+                <li>|</li>
+
+                <li>
+                <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
+                  <span><i class="fa fa-facebook-square"></i></span>
+                  <span><i class="fa fa-twitter-square"></i></span>
+                  <span><i class="fa fa-google-plus-square"></i></span>
+                </li>
+                <li style="float: right;">
+                  <a href='/api/blogs' ><button class="btn btn-primary"> View Blogs </button></a>
+                </li>
+                <li style="float: right;">
+                  <a href='http://localhost:3000/api/blogs/<%= detail.blogId %>?_method=EDIT'><button class="btn btn-primary"> Edit Blog </button></a>
+                </li>
+            </div>
+          </ul>
+           </div>
         </div>
       </div>
-    </div>
-    <hr />
-    <br>
-
+    </div>  
   </body>
 </html>

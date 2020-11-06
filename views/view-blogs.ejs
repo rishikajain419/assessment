@@ -1,103 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Bootstrap Website Example</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" language="javascript">
-     function deleteAlert()
-      {
-          alert('Blog deleted Successfully!!')
-      }
-      function updateBlog(){
-        alert('updated successfully')
-      }
-      
-    </script>
-    <style>
-      .fakeimg {
-        height: 200px;
-        background: #aaa;
-      }
-      .feature {
-        display: block;
-        width: 100%;
-        margin: 0;
-      }
 
-      .author {
-        font-style: italic;
-        line-height: 1.3;
-        color: #aab6aa;
-      }
+<head>
+  <title>Bootstrap Website Example</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" />
+  <script type="text/javascript" language="javascript">
+    function deleteAlert() {
+      alert('Blog deleted Successfully!!')
+    }
+    function updateBlog() {
+      alert('updated successfully')
+    }
 
-      .blog-stripe .block-title {
-        background: black;
-        width: 100%;
-        color: white;
-        height: 100px;
-        padding-top: 20px;
-      }
+  </script>
+  <style>
+    .fakeimg {
+      height: 200px;
+      background: #aaa;
+    }
 
-      .all-blogs .media {
-        margin-left: -40px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #cccccc;
+    .author {
+      font-style: italic;
+      line-height: 1.3;
+      color: #aab6aa;
+    }
+
+
+    .all-blogs .media {
+      margin-left: -40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #cccccc;
+    }
+
+    /*---------------------------------------*/
+    body {
+      margin-top: 10px;
+    }
+
+    .bg-sand {
+      background-color: #f5f5f6;
+    }
+
+    .media.blog-media {
+      margin-top: 30px;
+      position: relative;
+      display: block;
+    }
+
+    @media (min-width: 992px) {
+      .media.blog-media {
+        display: table;
       }
-    </style>
-  </head>
-  <body>
-    <div class="jumbotron text-center" style="margin-bottom: 0; height: 175px">
-      <h1>My Blogging Site</h1>
-    </div>
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button
-            type="button"
-            class="navbar-toggle"
-            data-toggle="collapse"
-            data-target="#myNavbar"
-          >
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand">Blogger</a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav">
-            <li><a href="http://localhost:3000/">Home</a></li>
-            <li><a href="http://localhost:3000/addBlog">Add Blog</a></li>
-            <li class="active">
-              <a href="/api/blogs">View Blogs</a>
-            </li>
-          </ul>
-        </div>
+    }
+
+    .media.blog-media .circle {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background-color: rgba(0, 0, 0, 0.5);
+      white-space: nowrap;
+      position: absolute;
+      padding: 0;
+      top: 20px;
+      left: 20px;
+      text-align: center;
+      box-shadow: none;
+      transform: translateX(0);
+      color: #fff;
+      transition: background-color 0.3s ease;
+    }
+
+    .media.blog-media .circle .day {
+      color: #fff;
+      transition: color 0.25s ease;
+      font-weight: 500;
+      font-size: 28px;
+      line-height: 1;
+      margin-top: 12px;
+    }
+
+    .media.blog-media .circle .month {
+      text-transform: uppercase;
+      font-size: 14px;
+    }
+
+    .media.blog-media>a {
+      position: relative;
+      display: block;
+    }
+
+    @media (min-width: 992px) {
+      .media.blog-media>a {
+        display: table-cell;
+        vertical-align: top;
+        min-width: 200px;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .media.blog-media>a {
+        min-width: 230px;
+      }
+    }
+
+    .media.blog-media>a:before {
+      position: absolute;
+      content: "";
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      bottom: 15px;
+      opacity: 0;
+      transform: scale(0);
+      transition: transform 0.3s ease, opacity 0.3s;
+     
+    }
+
+    .media.blog-media>a img {
+      width: 100%;
+    }
+
+    .media.blog-media:hover>a:before {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .media.blog-media:hover .circle {
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .media.blog-media:hover .circle .day,
+    .media.blog-media:hover .circle .month {
+      color: #222;
+    }
+
+    .media.blog-media:hover .media-body h5 {
+      color: #464545;
+    }
+
+    .media.blog-media:hover .media-body a.post-link {
+      color: #bd450e;
+      text-decoration: underline;
+    }
+
+    .media.blog-media .media-body {
+      border: 1px solid #efeff3;
+      padding: 30px 30px 10px;
+      font-size: 14px;
+      background: #fff;
+      border-top: none;
+    }
+
+    @media (min-width: 992px) {
+      .media.blog-media .media-body {
+        padding: 15px 20px 10px;
+        border-top: 1px solid #efeff3;
+        border-left: none;
+        display: table-cell;
+        vertical-align: top;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .media.blog-media .media-body {
+        padding: 30px 20px 10px;
+      }
+    }
+
+    .media.blog-media .media-body h5 {
+      transition: color 0.3s ease;
+      margin-bottom: 15px;
+    }
+
+    @media (min-width: 992px) {
+      .media.blog-media .media-body h5 {
+        font-size: 15px;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .media.blog-media .media-body h5 {
+        margin-bottom: 15px;
+        font-size: 18px;
+      }
+    }
+
+    .media.blog-media .media-body a.post-link {
+      display: block;
+      color: #222;
+      font-size: 11px;
+      padding: 23px 0;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    @media (min-width: 992px) {
+      .media.blog-media .media-body a.post-link {
+        padding: 7px 0;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .media.blog-media .media-body a.post-link {
+        padding: 23px 0;
+      }
+    }
+
+    .media.blog-media .media-body ul {
+      position: relative;
+      padding: 10px 0 0;
+    }
+
+    .media.blog-media .media-body ul li {
+      display: inline-block;
+      width: 49%;
+      position: relative;
+    }
+
+    .media.blog-media .media-body ul li:before {
+      position: absolute;
+      content: "";
+      top: 5px;
+      left: 0;
+      width: 1px;
+      height: 14px;
+      background: #eeeef2;
+    }
+
+    .media.blog-media .media-body ul li:first-child:before {
+      visibility: hidden;
+    }
+
+    .media.blog-media .media-body ul:before {
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: #eeeef2;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="jumbotron text-center" style="margin-bottom: 0; height: 175px">
+    <h1>My Blogging Site</h1>
+  </div>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand">Blogger</a>
       </div>
-    </nav>
+      <div class="collapse navbar-collapse" id="myNavbar" style="float: right;">
+        <ul class="nav navbar-nav">
+          <li><a href="http://localhost:3000/">Home</a></li>
+          <li><a href="http://localhost:3000/addBlog">Add Blog</a></li>
+          <li class="active">
+            <a href="/api/blogs">View Blogs</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- ---------------------------- -->
+
+  <section class="home-blog bg-sand">
     <div class="container">
-      <div class="row">
-        
-        <div class="col-md-10 col-lg-12">
+      <!-- section title -->
+      <!-- section title ends -->
+      <div class="row ">
+        <div class="col-md-16">
           <ul class="all-blogs">
             <% blogs.forEach(function(blog) { %>
-            <li class="media">
+            <li class="media blog-media">
+              <a href="#"><img class="d-flex"
+                  src="<%= blog.blogImage %>" style="width: 215px; height: 170px;" alt="No image found"></a>
               <div class="media-body">
-                <h4 class="media-heading">Title: <%= blog.title %></h4>
-                <p class="author">By <%= blog.author %></p>
-             
-              <div class="col-md-16" >
-                <a href="/api/blogs/<%= blog.blogId%>"><button class="btn btn-default" style="background-color: #4CAF50;color:white"><i class="glyphicon glyphicon-eye-open"></i> Read More </button></a>
-                <a style="margin-left: 1em" href='http://localhost:3000/api/blogs/<%= blog.blogId %>?_method=EDIT' ><button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i> Edit</button></a>
-                <a style="margin-left: 0.2em" href='http://localhost:3000/api/blogs/<%= blog.blogId %>?_method=DELETE' onclick="deleteAlert()"><button class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</button></a></td> 
-              </div>
+                <a href="">
+                  <h5 class="mt-0"><%= blog.title %></h5>
+                </a>
+                <a href="/api/blogs/<%= blog.blogId%>" style="color: forestgreen;">Read More</a>
+                <ul>
+                  <li>by: <%= blog.author %></li>
+                  <li class="text-right"><a href="http://localhost:3000/api/blogs/<%= blog.blogId %>?_method=DELETE" style="color: red;" onclick="deleteAlert()">Delete Blog</a></li>
+                </ul>
               </div>
             </li>
             <% }); %>
@@ -105,6 +305,7 @@
         </div>
       </div>
     </div>
-    <hr />
-  </body>
+  </section>
+</body>
+
 </html>
