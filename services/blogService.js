@@ -34,10 +34,13 @@ exports.getBlogs = (callback) => {
 exports.getBlogById = (_blogId, callback ) => {
 
   Blog.findOne( {blogId: _blogId } , ( err, blog ) => {
-    if(!err){
+    if(blog){
       console.log(`Blog with Id ${blog.blogId} Loaded Successfully`);
+      callback(err, blog)
     }
+    else{
     callback(err, blog);
+    }
   });
 }
 
@@ -57,9 +60,13 @@ exports.updateBlog = (_blogId, blogData, callback) => {
       if(status.n = 1 && status.ok == 1){
         msg = 'Updated Successfully!';
       }
+      callback(err, status);
+    }
+    else{
+      callback(err, status);
     }
     // 2. get the data and send it back to route
-    callback(err, status);
+    
   });
 }
 

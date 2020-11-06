@@ -17,17 +17,16 @@ const blogService = require("../../services/blogService");
 router.post("/", (req, res, next) => {
   // dealing with req body
   console.log(req.body);
-  console.log('method:'+ req.query._method);
-  
-      blogService.createBlog(req, function (err, data) {
-        if (!err) {
-          // res.json(data);
-          res.render("add-blog");
-        } else {
-          res.json(err);
-        }
-      });
-  
+  console.log("method:" + req.query._method);
+
+  blogService.createBlog(req, function (err, data) {
+    if (!err) {
+      // res.json(data);
+      res.render("add-blog");
+    } else {
+      res.json(err);
+    }
+  });
 });
 
 router.post("/:id", (req, res, next) => {
@@ -36,8 +35,7 @@ router.post("/:id", (req, res, next) => {
     req.method = "PUT";
     req.url = req.path;
     next();
-  } 
-  
+  }
 });
 
 /* GET blogs listing. */
@@ -66,29 +64,44 @@ router.get("/:id", (req, res, next) => {
   // URL Param is: id
   let req_method = req.query._method;
   if (req.query._method == "DELETE") {
-    console.log("hiiiiiiii", req.path);
     req.method = "DELETE";
     req.url = req.path;
     next();
   } else if (req.query._method === "UPDATE") {
-    // console.log(req.path)
     req.method = "PUT";
     req.url = req.path;
     next();
   } else {
+    // blogService.getBlogById(req.params.id, (err, data) => {
+    //   if (!err) {
+    //     if(req_method === "EDIT")
+    //     {
+    //       res.render('update-blog',{detail: data});
+    //     }
+    //     else{
+    //       res.render("blog-detail.ejs", { detail: data });
+    //     }
+    //   }
+    //  // res.json(data);
+    //   else {
+    //     res.json(err);
+    //   }
+    // });
+
     blogService.getBlogById(req.params.id, (err, data) => {
       if (!err) {
-        if(req_method === "EDIT")
-        {
-          res.render('update-blog',{detail: data});
+        if (data && data.isDeleted === false) {
+          if (req_method === "EDIT") {
+            res.render("update-blog", { detail: data });
+          } else {
+            res.render("blog-detail.ejs", { detail: data });
+          }
+        } else {
+          res.json({ Error: "Blog does not exist or the Blog has been deleted" });
         }
-        else{
-          res.render("blog-detail.ejs", { detail: data });
-        }
-      }
-     // res.json(data);
-      else {
-        res.json(err);
+      } else {
+        console.log(err);
+        res.json({ status: err});
       }
     });
   }
@@ -101,8 +114,12 @@ router.put("/:id", (req, res, next) => {
 
   blogService.updateBlog(req.params.id, req.body, (err, data) => {
     if (!err) {
-    //  res.json(data);
-    res.redirect('/api/blogs');
+      if (data) {
+        //  res.json(data);
+        res.redirect("/api/blogs");
+      } else {
+        res.json({ error: "error while updating" });
+      }
     } else {
       res.json(err);
     }
